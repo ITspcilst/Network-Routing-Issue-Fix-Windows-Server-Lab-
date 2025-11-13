@@ -1,4 +1,4 @@
-# 🧠 Network Routing Issue Fix (Windows Server Lab)
+#Network Routing Issue Fix (Windows Server Lab)
 
 ---
 
