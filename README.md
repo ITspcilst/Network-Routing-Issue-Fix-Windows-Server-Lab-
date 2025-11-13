@@ -40,7 +40,8 @@ Expected:
 - Internet reachable (`ping 8.8.8.8` should reply)
 
 **Screenshot:**  
-![Step 1 - IP and Route Before]()
+![Step 1 - IP Before](Screenshots/1_ipconfig_before.png)
+![Step 1 - Route Path Before](Screenshots/1_route_path_before.png)
 
 ---
 
@@ -49,7 +50,7 @@ Expected:
 Add a **wrong default route** to intentionally break internet access.
 
 ```cmd
-route -p add 0.0.0.0 mask 0.0.0.0 192.168.2.11
+route -p add 0.0.0.0 mask 0.0.0.0 192.168.2.15
 ```
 
 Now test connectivity:
@@ -61,34 +62,17 @@ ping 8.8.8.8
 Expected: Request times out — **no internet**.
 
 **Screenshots:**  
-![Step 2 - Ping Fail](screenshots/step_b_after_bad_route_ping_fail.png)  
-![Step 2 - Route Table With Bad Route](screenshots/step_b_route_table_with_bad_route.png)
+![Step 2 - Ping Fail](Screenshots/2_after_bad_route_ping_fail.png)  
+![Step 2 - Route Table With Bad Route](Screenshots/2_bad_route_table.png)
 
 ---
 
-## 🧰 Step 3 — Add the Correct Gateway (Still No Internet)
-
-Re-add the correct route, but the system still uses the bad one first.
-
-```cmd
-route -p add 0.0.0.0 mask 0.0.0.0 192.168.2.1
-ping 8.8.8.8
-```
-
-Expected: Still no reply — because Windows is still prioritizing the wrong route.
-
-**Screenshots:**  
-![Step 3 - Ping Still Fails](screenshots/step_c_added_correct_gateway_ping_still_fail.png)  
-![Step 3 - Conflicting Routes](screenshots/step_c_route_table_after_add_correct.png)
-
----
-
-## 🧹 Step 4 — Fix the Issue (Delete the Bad Route)
+## 🧹 Step 3 — Fix the Issue (Delete the Bad Route)
 
 Delete the incorrect gateway route from the routing table.
 
 ```cmd
-route delete 0.0.0.0 192.168.2.11
+route delete 0.0.0.0 192.168.2.15
 ```
 
 Now verify again:
@@ -101,11 +85,11 @@ ping 8.8.8.8
 ✅ Internet connectivity restored successfully.
 
 **Screenshot:**  
-![Step 4 - Route Deleted and Ping Success](screenshots/step_f_route_deleted_and_ping_success.png)
+![Step 3 - Route Deleted and Ping Success](Screenshots/3_bad_route_delete_and_ping_working.png)
 
 ---
 
-## 🔁 Step 5 — Make the Fix Persistent
+## 🔁 Step 4 — Make the Fix Persistent
 
 Re-add the correct route permanently so it stays even after reboot.
 
@@ -117,7 +101,7 @@ route print
 ✅ The correct default route (`192.168.2.1`) is now permanent.
 
 **Screenshot:**  
-![Step 5 - Persistent Route](screenshots/step_g_persistent_route.png)
+![Step 4 - Persistent Route](Screenshots/4_readded_route_permamently.png)
 
 ---
 
@@ -125,13 +109,12 @@ route print
 
 | Step | Filename | Description |
 |------|-----------|-------------|
-| 1 | step_a_ipconfig_route_before.png | Initial configuration |
+| 1 | step_a_ipconfig_before.png | Initial configuration |
 | 2 | step_b_after_bad_route_ping_fail.png | No internet after bad route |
-| 2 | step_b_route_table_with_bad_route.png | Bad route visible |
-| 3 | step_c_added_correct_gateway_ping_still_fail.png | Correct route added, still fails |
+| 2 | step_b_bad_route_table.png | Bad route visible |
 | 3 | step_c_route_table_after_add_correct.png | Conflicting routes |
-| 4 | step_f_route_deleted_and_ping_success.png | Ping success after deleting bad route |
-| 5 | step_g_persistent_route.png | Confirmed persistent correct route |
+| 4 | step_d_route_delete_and_ping_working.png | Ping success after deleting bad route |
+| 4 | step_d_readded_route_permamently.png | Confirmed persistent correct route |
 
 ---
 
@@ -170,30 +153,6 @@ It taught me:
 
 ---
 
-## 📂 Repository Structure
-
-```
-network-routing-fix/
-│
-├── README.md                     # Full project documentation (this file)
-│
-├── /screenshots                  # Inline screenshots used above
-│   ├── step_a_ipconfig_route_before.png
-│   ├── step_b_after_bad_route_ping_fail.png
-│   ├── step_b_route_table_with_bad_route.png
-│   ├── step_c_added_correct_gateway_ping_still_fail.png
-│   ├── step_c_route_table_after_add_correct.png
-│   ├── step_f_route_deleted_and_ping_success.png
-│   └── step_g_persistent_route.png
-│
-└── /evidence                     # Optional command outputs
-    ├── route_before.txt
-    ├── route_after_fix.txt
-    └── ping_test.txt
-```
-
----
-
 ## ✅ Conclusion
 
 By intentionally introducing a bad route and fixing it, I successfully restored internet access to my Windows Server (DC1).  
@@ -201,3 +160,5 @@ This project demonstrates effective troubleshooting, command-line proficiency, a
 
 **Result:** Internet restored ✅  
 **Documentation:** Complete, professional, and portfolio-ready.
+
+made by Szilard
