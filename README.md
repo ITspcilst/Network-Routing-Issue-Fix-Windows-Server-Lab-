@@ -26,7 +26,7 @@ By recreating the issue and fixing it through route analysis and correction, I d
 
 ---
 
-## 🧱 Step 1 — Verify Initial Network Configuration
+## 🧱 Step 1 — Verifying Initial Network Configuration
 
 Check the server’s current network configuration and routing table.
 
@@ -45,7 +45,7 @@ Expected:
 
 ---
 
-## 💣 Step 2 — Simulate a Bad Gateway
+## 💣 Step 2 — Simulating a Bad Gateway
 
 Add a **wrong default route** to intentionally break internet access.
 
@@ -67,15 +67,15 @@ Expected: Request times out — **no internet**.
 
 ---
 
-## 🧹 Step 3 — Fix the Issue (Delete the Bad Route)
+## 🧹 Step 3 — Fixing the Issue (Deleting the Bad Route)
 
-Delete the incorrect gateway route from the routing table.
+Deleting the incorrect gateway route from the routing table.
 
 ```cmd
 route delete 0.0.0.0 192.168.2.15
 ```
 
-Now verify again:
+Now verifying again:
 
 ```cmd
 route print
@@ -89,9 +89,9 @@ ping 8.8.8.8
 
 ---
 
-## 🔁 Step 4 — Make the Fix Persistent
+## 🔁 Step 4 — Making the Fix Persistent
 
-Re-add the correct route permanently so it stays even after reboot.
+Re-adding the correct route permanently so it stays even after reboot.
 
 ```cmd
 route -p add 0.0.0.0 mask 0.0.0.0 192.168.2.1
