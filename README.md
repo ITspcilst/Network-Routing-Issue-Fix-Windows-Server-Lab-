@@ -47,13 +47,13 @@ Expected:
 
 ## 💣 Step 2 — Simulating a Bad Gateway
 
-Add a **wrong default route** to intentionally break internet access.
+Adding a **wrong default route** to intentionally break internet access.
 
 ```cmd
 route -p add 0.0.0.0 mask 0.0.0.0 192.168.2.15
 ```
 
-Now test connectivity:
+Now testing connectivity:
 
 ```cmd
 ping 8.8.8.8
